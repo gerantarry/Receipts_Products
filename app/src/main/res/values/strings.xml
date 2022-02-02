@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Receipts &amp; Products</string>
+    <string name="go_to_products_button_name">Список продуктов</string>
+    <string name="go_to_receipts_button_name">Список рецептов</string>
 </resources>
