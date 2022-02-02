@@ -1,10 +1,11 @@
 package android.receiptsproducts
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
     private lateinit var productsButton:Button
     private lateinit var receiptsButton: Button
 
@@ -14,6 +15,11 @@ class MainActivity : AppCompatActivity() {
 
         productsButton = findViewById(R.id.go_to_products_button)
         receiptsButton = findViewById(R.id.go_to_receipts_button)
+
+        productsButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, ProductsActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
