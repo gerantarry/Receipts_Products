@@ -17,7 +17,7 @@ class MainActivity : Activity() {
         receiptsButton = findViewById(R.id.go_to_receipts_button)
 
         productsButton.setOnClickListener {
-            val intent = Intent(this@MainActivity, ProductsActivity::class.java)
+            val intent = Intent(this@MainActivity, ProductListActivity::class.java)
             startActivity(intent)
         }
 

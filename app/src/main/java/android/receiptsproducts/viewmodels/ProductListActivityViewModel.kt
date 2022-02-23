@@ -1,9 +1,9 @@
-package android.receiptsproducts
+package android.receiptsproducts.viewmodels
 
+import android.receiptsproducts.models.Product
 import androidx.lifecycle.ViewModel
-import kotlin.random.Random
 
-class ProductListViewModel: ViewModel() {
+class ProductListActivityViewModel: ViewModel() {
     val products = mutableListOf<Product>()
 
     init {
