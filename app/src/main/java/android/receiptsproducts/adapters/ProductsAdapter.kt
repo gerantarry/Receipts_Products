@@ -10,7 +10,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class ProductAdapter(val applicationContext:Context, var products: List<Product>):
+class ProductsAdapter(
+    val applicationContext:Context,
+    var products: List<Product>):
     RecyclerView.Adapter<ProductHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
@@ -25,7 +27,7 @@ class ProductAdapter(val applicationContext:Context, var products: List<Product>
     }
 
     override fun getItemCount(): Int {
-        return 0
+        return products.size
     }
 
 }
@@ -35,9 +37,9 @@ class ProductHolder(val applicationContext: Context, view: View):
     RecyclerView.ViewHolder(view), View.OnClickListener {
     private lateinit var product: Product
 
-    val productNameTextView: TextView = itemView.findViewById(R.id.product_name)
-    val productCaloriesTextView: TextView = itemView.findViewById(R.id.product_kilocalories)
-    val productCostTextView: TextView = itemView.findViewById(R.id.product_cost)
+    private val productNameTextView: TextView = itemView.findViewById(R.id.product_name)
+    private val productCaloriesTextView: TextView = itemView.findViewById(R.id.product_kilocalories)
+    private val productCostTextView: TextView = itemView.findViewById(R.id.product_cost)
 
     fun bind(product: Product) {
         this.product = product
