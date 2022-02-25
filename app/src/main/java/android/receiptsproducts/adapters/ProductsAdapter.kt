@@ -1,24 +1,25 @@
 package android.receiptsproducts.adapters
 
-import android.content.Context
 import android.receiptsproducts.R
 import android.receiptsproducts.models.Product
+import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
+private const val TAG = "ProductsAdapter"
+
 class ProductsAdapter(
-    val applicationContext:Context,
-    var products: List<Product>):
-    RecyclerView.Adapter<ProductHolder>(){
+    var products: List<Product>
+) :
+    RecyclerView.Adapter<ProductHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
-       // val view = inflate(R.layout.product_item_view, parent, false)
-        val view = inflate(applicationContext,R.layout.product_item_view,parent)
-        return ProductHolder(applicationContext,view)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.product_item_view, parent, false)
+        return ProductHolder(view)
     }
 
     override fun onBindViewHolder(holder: ProductHolder, position: Int) {
@@ -33,13 +34,14 @@ class ProductsAdapter(
 }
 
 
-class ProductHolder(val applicationContext: Context, view: View):
-    RecyclerView.ViewHolder(view), View.OnClickListener {
+class ProductHolder(itemView: View) :
+    RecyclerView.ViewHolder(itemView), View.OnClickListener {
     private lateinit var product: Product
 
-    private val productNameTextView: TextView = itemView.findViewById(R.id.product_name)
-    private val productCaloriesTextView: TextView = itemView.findViewById(R.id.product_kilocalories)
-    private val productCostTextView: TextView = itemView.findViewById(R.id.product_cost)
+    private val productNameTextView: TextView = this.itemView.findViewById(R.id.product_name)
+    private val productCaloriesTextView: TextView =
+        this.itemView.findViewById(R.id.product_kilocalories)
+    private val productCostTextView: TextView = this.itemView.findViewById(R.id.product_cost)
 
     fun bind(product: Product) {
         this.product = product
@@ -48,8 +50,8 @@ class ProductHolder(val applicationContext: Context, view: View):
         productCostTextView.text = this.product.cost.toString()
     }
 
-    override fun onClick(v: View) {
-        Toast.makeText(applicationContext, "${product.name} pressed!", Toast.LENGTH_SHORT)
+    override fun onClick(itemView: View) {
+        Toast.makeText(itemView.context, "${product.name} pressed!", Toast.LENGTH_SHORT)
             .show()
     }
 

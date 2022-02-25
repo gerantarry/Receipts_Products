@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.receiptsproducts.adapters.ProductsAdapter
 import android.receiptsproducts.viewmodels.ProductListActivityViewModel
 import android.util.Log
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.recyclerview.widget.LinearLayoutManager
 
 private const val TAG ="ProductListActivity"
 
@@ -32,11 +34,14 @@ class ProductListActivity : Activity(), ViewModelStoreOwner {
         productRecyclerView = findViewById(R.id.products_recycler_view)
         updateUI()
     }
-    //обновляем адаптер новым списком продуктов
+    //give the adapter new product list
     private fun updateUI() {
         val products = productListActivityViewModel.products
-        productsAdapter = ProductsAdapter(applicationContext,products)
-        productRecyclerView.adapter = productsAdapter
+        productRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@ProductListActivity)
+            productsAdapter = ProductsAdapter(products)
+            adapter = productsAdapter
+        }
     }
 
     override fun getViewModelStore(): ViewModelStore {

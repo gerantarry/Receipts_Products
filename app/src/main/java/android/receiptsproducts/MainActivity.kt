@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 
+private const val TAG = "MainActivity"
+
 class MainActivity : Activity() {
     private lateinit var productsButton:Button
     private lateinit var receiptsButton: Button
