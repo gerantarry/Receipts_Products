@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Receipts &amp; Products</string>
+    <!--Button-->
     <string name="go_to_products_button_name">Product List</string>
     <string name="go_to_receipts_button_name">Receipt List</string>
+    <string name="fab_description">Fab for adding product in product list</string>
+
+    <!--Text Views-->
+    <string name="product_name_text_view">Product name</string>
+    <string name="product_cost_text_view">Product cost</string>
+    <string name="product_calories_text_view">Product calories</string>
 </resources>
