@@ -3,7 +3,7 @@ package android.receiptsproducts.viewmodels
 import android.receiptsproducts.models.Product
 import androidx.lifecycle.ViewModel
 
-class ProductListActivityViewModel: ViewModel() {
+class ProductListViewModel: ViewModel() {
     val products = mutableListOf<Product>()
 
     init {
