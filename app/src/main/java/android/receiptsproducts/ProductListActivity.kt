@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.receiptsproducts.adapters.ProductsAdapter
+import android.receiptsproducts.dialogs.AddProductToListDialog
 import android.receiptsproducts.viewmodels.ProductListViewModel
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -15,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 private const val TAG ="ProductListActivity"
 
-class ProductListActivity : Activity(), ViewModelStoreOwner {
+class ProductListActivity : FragmentActivity(), ViewModelStoreOwner {
 
     //lazy - отложенная инициализация через механизм делегатов.
     // Инициализация требует вычислений, которые желательно не выполнять если их результат никогда не будет использован
@@ -38,8 +40,10 @@ class ProductListActivity : Activity(), ViewModelStoreOwner {
         productRecyclerView = findViewById(R.id.products_recycler_view)
 
         addButton.setOnClickListener {
-         //   val intent = Intent(this@ProductListActivity, ::class.java)
-         //   startActivity(intent)
+            Log.d(TAG, "OnClick: Opening dialog")
+
+            val dialog = AddProductToListDialog()
+            dialog.show(supportFragmentManager, "AddProductToListDialog")
         }
 
         updateUI()

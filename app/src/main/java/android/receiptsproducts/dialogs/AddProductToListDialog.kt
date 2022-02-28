@@ -27,17 +27,15 @@ class AddProductToListDialog : DialogFragment() {
         val mActionOk: TextView = view.findViewById(R.id.action_ok)
         val mActionCancel: TextView = view.findViewById(R.id.action_cancel)
 
-        mActionCancel.setOnClickListener(View.OnClickListener {
-            fun onClick(view: View){
-                Log.d(TAG,"OnCLick, closing dialog")
-                dialog?.dismiss()
-            }
-        })
+        mActionCancel.setOnClickListener {
+            Log.d(TAG, "OnCLick, closing dialog")
+            dialog?.dismiss()
+        }
 
-        mActionOk.setOnClickListener(View.OnClickListener {
-            Log.d(TAG,"OnClick, adding product")
+        mActionOk.setOnClickListener {
+            Log.d(TAG, "OnClick, adding product")
             //TODO need to add method for fill productList
-        })
+        }
 
         return view
     }
