@@ -1,10 +1,9 @@
 package android.receiptsproducts
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.receiptsproducts.adapters.ProductsAdapter
 import android.receiptsproducts.dialogs.AddProductToListDialog
+import android.receiptsproducts.dialogs.OnInputListener
 import android.receiptsproducts.viewmodels.ProductListViewModel
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
@@ -17,19 +16,42 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 private const val TAG ="ProductListActivity"
 
-class ProductListActivity : FragmentActivity(), ViewModelStoreOwner {
+class ProductListActivity : FragmentActivity(), ViewModelStoreOwner, OnInputListener {
 
     //lazy - отложенная инициализация через механизм делегатов.
     // Инициализация требует вычислений, которые желательно не выполнять если их результат никогда не будет использован
+
+    //vars
     private val productListViewModelStore:ViewModelStore by lazy {
         ViewModelStore()
     }
     private val productListViewModel: ProductListViewModel by lazy {
         ViewModelProvider(this)[ProductListViewModel::class.java]
     }
+
+    //widgets
     private lateinit var productRecyclerView: RecyclerView
     private lateinit var addButton:FloatingActionButton
     private var productsAdapter:ProductsAdapter? = null
+
+    override fun getViewModelStore(): ViewModelStore {
+        return productListViewModelStore
+    }
+
+    /**
+     * send input to create and add product
+     * to productListViewModel
+     */
+    override fun sendInput(input: List<String>) {
+        Log.d(TAG,"sendInput: $input")
+        //TODO need to check 1 and 2 parameter for ""
+        productListViewModel.addProduct(
+            input[0],
+            input[1],
+            input[2]
+        )
+        updateUI()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +67,9 @@ class ProductListActivity : FragmentActivity(), ViewModelStoreOwner {
             val dialog = AddProductToListDialog()
             dialog.show(supportFragmentManager, "AddProductToListDialog")
         }
-
         updateUI()
     }
+
     //give the adapter new product list
     private fun updateUI() {
         val products = productListViewModel.products
@@ -56,9 +78,5 @@ class ProductListActivity : FragmentActivity(), ViewModelStoreOwner {
             productsAdapter = ProductsAdapter(products)
             adapter = productsAdapter
         }
-    }
-
-    override fun getViewModelStore(): ViewModelStore {
-        return productListViewModelStore
     }
 }

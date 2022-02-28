@@ -16,7 +16,16 @@ class ProductListViewModel: ViewModel() {
         }
     }
 
-    fun addProduct(product:Product){
+    fun addProduct(
+        productName:String,
+        productCost:String,
+        productCalories:String
+    ){
+       val product = Product(
+           productName,
+           productCost.toInt(),
+           productCalories.toInt())
+
         products.add(product)
     }
 }
