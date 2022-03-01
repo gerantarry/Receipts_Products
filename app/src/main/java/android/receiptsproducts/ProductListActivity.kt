@@ -6,6 +6,8 @@ import android.receiptsproducts.dialogs.AddProductToListDialog
 import android.receiptsproducts.dialogs.OnInputListener
 import android.receiptsproducts.viewmodels.ProductListViewModel
 import android.util.Log
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
@@ -13,6 +15,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.lang.NumberFormatException
 
 private const val TAG ="ProductListActivity"
 
@@ -42,13 +45,13 @@ class ProductListActivity : FragmentActivity(), ViewModelStoreOwner, OnInputList
      * send input to create and add product
      * to productListViewModel
      */
-    override fun sendInput(input: List<String>) {
-        Log.d(TAG,"sendInput: $input")
-        //TODO need to check 1 and 2 parameter for ""
+    override fun sendInput(inputName:String, intInput:HashMap<String,Int>) {
+        Log.d(TAG,"sendInput: $inputName, $intInput")
+
         productListViewModel.addProduct(
-            input[0],
-            input[1],
-            input[2]
+            inputName,
+            intInput.getValue("cost"),
+            intInput.getValue("calories")
         )
         updateUI()
     }

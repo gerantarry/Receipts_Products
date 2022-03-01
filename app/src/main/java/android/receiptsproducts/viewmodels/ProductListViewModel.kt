@@ -18,13 +18,13 @@ class ProductListViewModel: ViewModel() {
 
     fun addProduct(
         productName:String,
-        productCost:String,
-        productCalories:String
+        productCost:Int,
+        productCalories:Int
     ){
        val product = Product(
            productName,
-           productCost.toInt(),
-           productCalories.toInt())
+           productCost,
+           productCalories)
 
         products.add(product)
     }

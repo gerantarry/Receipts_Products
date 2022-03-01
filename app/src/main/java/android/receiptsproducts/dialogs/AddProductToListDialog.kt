@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import java.lang.ClassCastException
+import java.lang.NumberFormatException
 
 private const val TAG = "AddProductToListDialog"
 
@@ -45,19 +47,39 @@ class AddProductToListDialog : DialogFragment() {
         mActionOk.setOnClickListener {
             Log.d(TAG, "OnClick, adding product")
 
-            val nameInputString = nameInput.text.toString()
-            val costInputString = costInput.text.toString()
-            val caloriesInputString = caloriesInput.text.toString()
-            val input: List<String> = mutableListOf(
-                nameInputString,
-                costInputString,
-                caloriesInputString)
+            //checking name, cost, calories fields
+            if (nameInput.text.toString() == ""){
+                Toast.makeText(
+                    context,
+                    "Please enter the correct product name",
+                    Toast.LENGTH_SHORT)
+                    .show()
+                dialog?.dismiss()
+            }else
+            {
+                val nameInputString = nameInput.text.toString()
+                val costInputInt: Int = try {
+                    costInput.text.toString().toInt()
+                } catch (e: NumberFormatException) {
+                    Log.e(TAG, "mActionOk.OnClickListener: NumberFormatException ${e.message}")
+                    0
+                }
+                val caloriesInputInt: Int = try {
+                    caloriesInput.text.toString().toInt()
+                } catch (e: NumberFormatException) {
+                    Log.e(TAG, "mActionOk.OnClickListener: NumberFormatException ${e.message}")
+                    0
+                }
 
-            mOnInputListener.sendInput(input)
+                val intInput = mutableMapOf(
+                    "cost" to costInputInt,
+                    "calories" to caloriesInputInt
+                ) as HashMap
 
-            dialog?.dismiss()
+                mOnInputListener.sendInput(nameInputString, intInput)
+                dialog?.dismiss()
+            }
         }
-
         return view
     }
 
